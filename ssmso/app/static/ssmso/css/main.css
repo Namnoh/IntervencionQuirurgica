@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
+/* GENERAL */
 body {
     margin: 0;
     background-color: #E6E6E6;
@@ -20,10 +21,6 @@ header{
 
 .navbar .col {
     border-right: 1px solid rgb(190, 190, 190);
-}
-
-.a {
-    border-right: 0 !important;
 }
 
 .main-navbar {
@@ -107,9 +104,7 @@ header{
 footer{
     background: rgb(255, 255, 255);
     width: 100%;
-
     margin: 3rem 0 0 0;
-
 }
 
 footer h4 {
@@ -176,3 +171,4 @@ footer h4 {
 .filtro {
     display: none;
 }
+

@@ -11,7 +11,6 @@ header{
     background-image: url(../img/bg.png);
     width:100%;
     height: 20rem;
-    /* height:20rem; */
 }
 
 .navbar-collapse {
@@ -20,10 +19,6 @@ header{
 
 .col {
     border-right: 1px solid rgb(190, 190, 190);
-}
-
-.a {
-    border-right: 0 !important;
 }
 
 .main-navbar {
@@ -82,13 +77,10 @@ header{
 .body-bg{ 
     background-color: white;
     padding: 10% 20% 10% 20%;
-    /* padding: 5rem 15rem 5rem 15rem; */
     margin-top: 5rem;
     margin-bottom: 5rem;
     -webkit-box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.38);
     box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.38);
-    /* margin-left: 10%;
-    margin-right: 10%; */
 }
 
 h5 {
@@ -101,7 +93,6 @@ h3 {
 
 .login-box{
     background-color: white;
-    /* height: 40rem; */
     border: 1px solid black;
 }
 
@@ -133,7 +124,6 @@ form a:hover {
     color: #615fbb;
     font-size: 1.05rem;
     transition: all 0.3s;
-    /* text-decoration: underline; */
 }
 
 .boton-submit {
@@ -184,11 +174,6 @@ h4 {
     margin: 0 0 0 1rem;
 }
 
-/* .footer-line-chile{
-    background: linear-gradient(90deg, var(--primary-N) 40%, #EB3646 40%);
-    border: 0;
-} */
-
 .footer-container{
     display: flex;
     flex-direction: row;
@@ -200,12 +185,6 @@ h4 {
     padding: 0 2rem 0 2rem;
     border-left: 1px solid #d6d6d6;
 }
-
-/* .lista>h4{
-    color: var(--primary-N);
-    font-family: 'Ubuntu';
-    font-weight: normal;
-} */
 
 .lista>ul{
     font-size: 0.75rem;
@@ -226,4 +205,8 @@ h4 {
     border: 0;
     margin: 1.5rem 0 0 1rem;
     padding: 0.5rem 3.3rem 0 0;
+}
+
+.color {
+    color: rgba(212, 4, 4, 0.801) !important;
 }

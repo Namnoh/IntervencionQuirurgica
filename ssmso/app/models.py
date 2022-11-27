@@ -1,70 +1,84 @@
 from django.db import models
+import datetime, django
+from django.contrib.auth.models import User
 
 # Create your models here.
 
-# class Paciente (models.Model):
+class Usuario (models.Model):
 
-    # paRut = models.IntegerField(primary_key=True, verbose_name='Rut Paciente')
-    # paDigVer = models.CharField(max_length=1, verbose_name='Dígito Verificador Paciente')
-    # paNombres = models.CharField(max_length=100, verbose_name='Nombres Paciente')
-    # paApellidos = models.CharField(max_length=100 ,verbose_name='Apellidos Paciente')
-    # paTelefono = models.IntegerField(verbose_name='Teléfono Paciente') # default = None
-    # paCorreo = models.CharField(max_length=50, verbose_name='Correo Paciente') # null = True
-    # paDireccion = models.CharField(max_length=150,verbose_name='Dirección Paciente')
-    # paContEmerg = models.IntegerField(verbose_name='Contacto de Emergencia Paciente')
+    userRut = models.CharField(primary_key=True, max_length=10, verbose_name='Rut Usuario')
+    userNombres = models.CharField(max_length=100, verbose_name='Nombres Usuario')
+    userApellidos = models.CharField(max_length=100, verbose_name='Apellidos Usuario')
+    userCorreo = models.CharField(max_length=50, verbose_name='Correo Usuario')
+    userPassword = models.CharField(max_length=50, verbose_name='Contraseña Usuario')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default="")
 
-    # def __str__(self):
-    #     return f'{self.paRut} - {self.paDigVer} | {self.paNombres}'
+    def __str__(self):
+        return f'{self.userRut} | {self.userNombres}'
 
-# class RegRecepcion (models.Model):
+class Cirugia (models.Model):
 
-    # regRecepId = models.BigAutoField(primary_key=True, verbose_name='Id  Registro de Recepción')
-    # regRecepFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Recepción')
-    # regRecepHora = models.DateField(default=django.utils.timezone.now, verbose_name='Hora Registro de Recepción')
-    # regRecepPac = models.OneToOneField(Paciente, on_delete=models.CASCADE)
+    cirugiaId = models.BigAutoField(primary_key=True, verbose_name='Id Cirugía')
+    cirugiaNombre = models.CharField(max_length=100, verbose_name='Nombre Cirugia')
 
-    # def __str__(self):
-    #     return f'{self.regRecepId}'
+    def __str__(self):
+        return f'{self.cirugiaId} - {self.cirugiaNombre}'
 
-# class RegQuirurgico (models.Model):
+class Paciente (models.Model):
 
-    # regQuiId = models.BigAutoField(primary_key=True, verbose_name='Id  Registro de Quirúrgico')
-    # regQuiFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Quirúrgico')
-    # regQuiHora = models.DateField(default=django.utils.timezone.now, verbose_name='Hora Registro de Quirúrgico')
-    # regQuiPac = models.OneToOneField(Paciente, on_delete=models.CASCADE)
-    # regQuiBit = models.OneToOneField(Bitacora, on_delete=models.CASCADE)
-    # regQuiRec = models.OneToOneField(RegRecepcion, on_delete=models.CASCADE)
+    paRut = models.CharField(primary_key=True, max_length=10, verbose_name='Rut Paciente')
+    paNombres = models.CharField(max_length=100, verbose_name='Nombres Paciente')
+    paApellidos = models.CharField(max_length=100 ,verbose_name='Apellidos Paciente')
+    paCorreoEmerg = models.CharField(max_length=50, verbose_name='Correo Emergencia Paciente')
+    paCirugia = models.CharField(max_length=150,verbose_name='Dirección Paciente')
+    paAlergias = models.CharField(max_length=100, blank=True, default="", verbose_name='Alergias Paciente')
+    paCirugiasAnteriores = models.CharField(max_length=250, blank=True, default="", verbose_name='Cirugia Anteriores Paciente')
 
-    # def __str__(self):
-    #     return f'{self.regQuiId}'
+    def __str__(self):
+        return f'{self.paRut} | {self.paNombres}'
 
-# class Bitacora (models.Model):
+class RegRecepcion (models.Model):
 
-    # bitacoraId = models.BigAutoField(primary_key=True, verbose_name='Id  Bitacora')
-    # bitacoraFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Bitacora')
-    # bitacoraHora = models.DateField(default=django.utils.timezone.now, verbose_name='Hora Bitacora')
-    # bitacoraInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE)
-    # bitacoraTras = models.OneToOneField(infTraslado, on_delete=models.CASCADE)
+    regRecepId = models.BigAutoField(primary_key=True, verbose_name='Id  Registro de Recepción')
+    regRecepFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Recepción')
+    regRecepPac = models.OneToOneField(Paciente, on_delete=models.CASCADE)
 
-    # def __str__(self):
-    #     return f'{self.bitacoraId}'
+    def __str__(self):
+        return f'{self.regRecepId}'
 
-# class InfIntervencion (models.Model):
+class InfIntervencion (models.Model):
 
-    # interId = models.BigAutoField(primary_key=True, verbose_name='Id  Bitacora')
-    # interFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Bitacora')
-    # interHora = models.DateField(default=django.utils.timezone.now, verbose_name='Hora Bitacora')
-    # interTras = models.OneToOneField(infTraslado, on_delete=models.CASCADE)
+    interId = models.BigAutoField(primary_key=True, verbose_name='Id  Intervención')
+    interFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Intervención')
+    interNombre = models.OneToOneField(Cirugia, on_delete=models.CASCADE)
+    interAnestesia = models.CharField(max_length=50, verbose_name='Anestesia Intervención')
+    interApoyo = models.CharField(max_length=50, blank=True, default="", verbose_name='Apoyo Intervención')
+    interCantApoyo = models.IntegerField(blank=True, default=0, verbose_name='Cantidad de Apoyo Intervención')
+    interObs = models.CharField(max_length=250, blank=True, default="", verbose_name='Observación Intervención')
+    interInsumos = models.IntegerField(blank=True, default=0,verbose_name='Recuento de Insumos Intervención')
 
-    # def __str__(self):
-    #     return f'{self.bitacoraId}'
+    def __str__(self):
+        return f'{self.interId}'
 
-# class InfTraslado (models.Model):
+class InfTraslado (models.Model):
 
-    # trasId = models.BigAutoField(primary_key=True, verbose_name='Id  Bitacora')
-    # trasFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Bitacora')
-    # trasHora = models.DateField(default=django.utils.timezone.now, verbose_name='Hora Bitacora')
-    # trasInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE)
+    trasId = models.BigAutoField(primary_key=True, verbose_name='Id  Traslado')
+    trasFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Traslado')
+    trasEquipo = models.CharField(max_length=50, verbose_name='Equipo Traslado')
+    trasSala = models.CharField(max_length=50, verbose_name='Sala Traslado')
+    trasObs = models.CharField(max_length=250, blank=True, default="", verbose_name='Observación Traslado')
 
-    # def __str__(self):
-    #     return f'{self.bitacoraId}'
+    def __str__(self):
+        return f'{self.trasId}'
+
+class RegQuirurgico (models.Model):
+
+    regQuiId = models.BigAutoField(primary_key=True, verbose_name='Id  Registro de Quirúrgico')
+    regQuiFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Quirúrgico')
+    regQuiPac = models.OneToOneField(Paciente, on_delete=models.CASCADE)
+    regQuiRec = models.OneToOneField(RegRecepcion, on_delete=models.CASCADE)
+    regQuiInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE)
+    regQuiTras = models.OneToOneField(InfTraslado, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.regQuiId}'

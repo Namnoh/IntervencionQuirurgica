@@ -1,89 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+{%load static %}
 <head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="{% static '/ssmso/css/main.css' %}"> <!-- CSS -->
+    {% include './default/head.html' %}
     <link rel="stylesheet" href="{% static '/ssmso/css/forms-styles.css' %}"> <!-- CSS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <link rel="icon" href="{% static '/ssmso/img/favicon.ico' %}" type="ico">
-    <title>Formularios </title>
+    <title>Formulario Intervencion</title>
+    <style>
+        label.error {
+            color: red;
+            position: absolute;
+            margin-top: 70px;
+        }
+
+        input.error, textarea.error {
+            border: 1px dashed red;
+            color: red;
+            
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="imggb">
-                <a href="{% url 'index' %}">
-                    <img src="{% static '/ssmso/img/logo.png' %}">
-                </a>
-            </div>
-        </div>
-        
-        <!-- NAVBAR -->
-        <div class="container main-navbar">
-            <div class="navbarhome sticky-bottom">
-                <nav class="navbar navbar-expand-lg bg-light ">
-                    <div class="container">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNavDropdown" >
-                            <ul class="navbar-nav">
-                                <div class="row" >
-                                    <div class="col">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <b> Fase Pré-Quirúrgica</b>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="forms.html">Inter-Consulta</a></li>
-                                                <li><a class="dropdown-item" href="formulariointer.html">Evaluación Consulta</a></li>
-                                                <li><a class="dropdown-item" href="formulariotraslado.html">Programación de Cirugía</a></li>
-                                            </ul>
-                                        </li>
-                                    </div>
-                                    <div class="col">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <b>Fase Quirúrgica</b> 
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Preparación Pabellón</a></li>
-                                                <li><a class="dropdown-item" href="#">Ejecución de Intervención Quirúrgica</a></li>
-                                            </ul>
-                                        </li>
-                                    </div>
-                                    <div class="col">
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                               <b> Fase Post-Quirúrgica</b>
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#">Recuperación y Alta</a></li>
-                                            </ul>
-                                        </li>
-                                    </div>
-                                    <div class="col">
-                                        <a class="nav-link " href="{% url 'login' %}">
-                                           <b> Inicio de Sesión</b>
-                                        </a>
-                                    </div>
-                                    <div class="col a">
-                                        <div class="nav-mini-logo-min"><span class="azul"></span><span class="rojo"></span></div>
-                                        <p class="min" style="width: 100% ;text-align: center;">Ministerio de Salud</p>
-                                    </div>
-                                    
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
+    {% load static %}
+
+    <!-- HEADER -->
+    {% include './default/header.html' %}
+
     <!-- BODY -->
     <div class="container">
         <div class="body-bg">
@@ -93,7 +34,7 @@
             <hr><br>
             <div class="row">
                 <div class="col-md-6">
-                    <b id="validatepass">  Estado del paciente :</b><hr><br>
+                    <b id="validatepass">Estado del paciente :</b><hr><br>
                 </div>
             </div>
             <div class="form-check ">
@@ -106,7 +47,7 @@
                 </div><br>
                 <div id="jean" class="filtro">
                 <br>
-                <form method="post" id="formdata">
+                <form method="POST" id="formInter">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6">
@@ -114,10 +55,11 @@
                             <hr class="bg-info">
                         </div>
                     </div>
-                    <br><div class="row">
+                    <br>
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="group">
-                                <input required="" type="text" class="input">
+                                {{ inter_form.interNombre }}
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Nombre Intervencion:</label>
@@ -125,7 +67,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="group">
-                                <input required="" type="text" class="input">
+                                {{ inter_form.interAnestesia }}
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Tipo de anestencia:</label>
@@ -133,8 +75,7 @@
                         </div>
                     </div> 
                     <br>
-                    <div class="row">
-                       
+                    <div class="row">                      
                         <div class="col-md-4">
                             <div><h6> ¿Necesita apoyo?</h6></div>
                             <div class="form-check form-check-inline">
@@ -145,17 +86,56 @@
                                 <label class="form-check-label radio" for="radio2">No </label>
                                 <input type="radio" class="form-check-input" id="radio4" name="radios" value="">
                             </div><br>
+                            <hr class="bg-info">
                         </div>
-                        <div class="filtro col-md-4 " id="jean2">
-                            <div class="group">
-                                <input required="" type="number" class="input" id="inputJean2">
-                                <span class="highlight"></span>
-                                <span class="bar"></span>
-                                <label>Cantidad:</label>
+                        <div class="filtro col-md-8" id="jean2">
+                            <div class="col-md-4 " >
+                                <div class="group">
+                                    {{ inter_form.interApoyo }}
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label>Tipo de apoyo:</label>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="group  ">
+                                    {{ inter_form.interCantApoyo }}
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label>Cantidad:</label>
+                                </div>   
                             </div>
                         </div>
                     </div>
-                    <br><br><div id="botonValido" class="filtro boton-submit">
+                    <br>
+                    <br>
+                    <div>
+                        <div class="group">
+                            {{ inter_form.interObs }}
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Observaciones:</label>
+                        </div> 
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b id="validatepass">Inicio tercera pausa</b><br>
+                            <hr>
+                        </div>                       
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="group">
+                            {{ inter_form.interInsumos }}
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Recuento de insumos:</label>
+                        </div>
+                    </div>
+                    <div id="botonValido" class="filtro boton-submit">
                         <button>
                             <div class="svg-wrapper-1">
                                 <div class="svg-wrapper">
@@ -187,57 +167,13 @@
         </div>
     </div>
   
-    <!-- footer -->
-    <div class="container">
-        <footer>
-       
-            <div class="line-mini-logo-min"><span class="footer-azul"></span><span class="footer-rojo"></span></div>
-            <div class="footer-container">
-                <div class="lista">
-                    <h4>Gestión de Salud</h4>
-                    <ul>
-                        <li>DEIS</li>
-                        <li>GES - Registro Urgencia</li>
-                        <li>Gestión de Camas</li>
-                        <li>Proyecto MIS</li>
-                        <li>Urgencia Infantil</li>
-                    </ul>
-                </div>
-                <div class="lista border-gray">
-                    <h4>Normas y Manuales</h4>
-                    <ul>
-                        <li>Biblioteca de Red Cardiovalcular</li>
-                        <li>CAIF</li>
-                        <li>Departamento de Calidad y Seguridad del Paciente</li>
-                        <li>Departamento de Emergencia yDesastre</li>
-                        <li>Manual de Synapse</li>
-                        <li>Protocolos</li>
-                        <li>Sidra</li>
-                    </ul>
-                </div>
-            
-                <div class="lista border-gray">
-                    <h4>Sistemas</h4>
-                    <ul>
-                        <li>Auto Consulta RRHH</li>
-                        <li>Centros Tratamiento Alcohol y Drogas</li>
-                        <li>Fondos de Ojos</li>
-                        <li>Laboratorio en Línea</li>
-                        <li>Sineav Atención Primaria</li>
-                        <li>Sineav Hospitales 3.0</li>
-                        <li>Sistema Tabaquismo SSMSO</li>
-                        <li>Sistema para la visualización de imágenes</li>
-                        <li>Mapa Urgencia SSMSO</li>
-                        <li>SISAPS</li>
-                        <li>SGS - Sistema Gestión SIDRA 2.0</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-text">Servicio de Salud Metropolitano Sur Oriente - Dirección: Avda. Concha y Toro 3459, Puente Alto - Chile - Teléfono: (02) 25762300</div>
-            <div class="footer-mini-logo-min"><span class="azul"></span><span class="rojo"></span></div>
-        </footer>
-    </div>
-    <script type="module" src="{% static '/ssmso/js/main.js' %}"></script>
+    <!-- FOOTER -->
+    {% include './default/footer.html' %}
+
+    <script type="module" src="{% static '/ssmso/js/main.js' %}"></script> <!-- MAIN JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script> <!-- BOOTSTRAP -->  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> <!-- JQUERY -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script> <!-- JQUERY VALIDATOR-->
+    <script type="module" src="{% static '/ssmso/js/formValidator.js' %}"></script> <!-- VALIDADOR FORM-->
 </body>
 </html>

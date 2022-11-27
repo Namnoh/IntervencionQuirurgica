@@ -1,0 +1,84 @@
+<header>
+    {% load static %}
+    <div class="container">
+        <div class="imggb">
+            <a href="{% url 'index' %}">
+                <img src="{% static '/ssmso/img/logo.png' %}">
+            </a>
+        </div>
+    </div>
+    
+    <!-- NAVBAR -->
+    <div class="container main-navbar">
+        <div class="navbarhome sticky-bottom">
+            <nav class="navbar navbar-expand-lg bg-light ">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown" >
+                        <ul class="navbar-nav">
+                            <div class="row" >
+                                <div class="col">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle {% if user.is_authenticated != True %}color{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" {% if user.is_authenticated != True %}disabled class="a"{% endif %}>
+                                            <b> Fase Pré-Quirúrgica</b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="forms.html">Inter-Consulta</a></li>
+                                            <li><a class="dropdown-item" href="formulariointer.html">Evaluación Consulta</a></li>
+                                            <li><a class="dropdown-item" href="formulariotraslado.html">Programación de Cirugía</a></li>
+                                        </ul>
+                                    </li>
+                                </div>
+                                <div class="col">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle {% if user.is_authenticated != True %}color{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" {% if user.is_authenticated != True %}disabled{% endif %}>
+                                            <b>Fase Quirúrgica</b> 
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Preparación Pabellón</a></li>
+                                            <li><a class="dropdown-item" href="#">Ejecución de Intervención Quirúrgica</a></li>
+                                        </ul>
+                                    </li>
+                                </div>
+                                <div class="col">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle {% if user.is_authenticated != True %}color{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" {% if user.is_authenticated != True %}disabled{% endif %}>
+                                           <b> Fase Post-Quirúrgica</b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Recuperación y Alta</a></li>
+                                        </ul>
+                                    </li>
+                                </div>
+                                <div class="col">
+                                    {% if user.is_authenticated %}
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle {% if user.is_authenticated != True %}color{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" {% if user.is_authenticated != True %}disabled{% endif %}>
+                                                <b>{{ user.usuario.userCorreo }}</b> 
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Perfil</a></li>
+                                                <li><a class="dropdown-item" href="#">Configuración</a></li>
+                                                <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                                            </ul>
+                                        </li>
+                                    {% else %}
+                                        <a class="nav-link " href="{% url 'login' %}">
+                                            <b> Inicio de Sesión</b>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="col" style="border:0">
+                                    <div class="nav-mini-logo-min"><span class="azul"></span><span class="rojo"></span></div>
+                                    <p class="min" style="width: 100% ;text-align: center;">Ministerio de Salud</p>
+                                </div>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
