@@ -21,6 +21,9 @@ class Cirugia (models.Model):
     cirugiaId = models.BigAutoField(primary_key=True, verbose_name='Id Cirugía')
     cirugiaNombre = models.CharField(max_length=100, verbose_name='Nombre Cirugia')
 
+    class Meta:
+        ordering=['cirugiaNombre']
+
     def __str__(self):
         return f'{self.cirugiaId} - {self.cirugiaNombre}'
 
@@ -30,7 +33,7 @@ class Paciente (models.Model):
     paNombres = models.CharField(max_length=100, verbose_name='Nombres Paciente')
     paApellidos = models.CharField(max_length=100 ,verbose_name='Apellidos Paciente')
     paCorreoEmerg = models.CharField(max_length=50, verbose_name='Correo Emergencia Paciente')
-    paCirugia = models.CharField(max_length=150,verbose_name='Dirección Paciente')
+    paCirugia = models.ForeignKey(Cirugia, on_delete=models.CASCADE)
     paAlergias = models.CharField(max_length=100, blank=True, default="", verbose_name='Alergias Paciente')
     paCirugiasAnteriores = models.CharField(max_length=250, blank=True, default="", verbose_name='Cirugia Anteriores Paciente')
 
@@ -50,12 +53,15 @@ class InfIntervencion (models.Model):
 
     interId = models.BigAutoField(primary_key=True, verbose_name='Id  Intervención')
     interFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Intervención')
-    interNombre = models.OneToOneField(Cirugia, on_delete=models.CASCADE)
+    interNombre = models.ForeignKey(Cirugia, on_delete=models.CASCADE)
     interAnestesia = models.CharField(max_length=50, verbose_name='Anestesia Intervención')
     interApoyo = models.CharField(max_length=50, blank=True, default="", verbose_name='Apoyo Intervención')
     interCantApoyo = models.IntegerField(blank=True, default=0, verbose_name='Cantidad de Apoyo Intervención')
     interObs = models.CharField(max_length=250, blank=True, default="", verbose_name='Observación Intervención')
-    interInsumos = models.IntegerField(blank=True, default=0,verbose_name='Recuento de Insumos Intervención')
+    interInsumos = models.CharField(max_length=500, blank=True, default=0,verbose_name='Recuento de Insumos Intervención')
+    interRecep = models.OneToOneField(RegRecepcion, on_delete=models.CASCADE)
+    
+
 
     def __str__(self):
         return f'{self.interId}'
@@ -67,6 +73,8 @@ class InfTraslado (models.Model):
     trasEquipo = models.CharField(max_length=50, verbose_name='Equipo Traslado')
     trasSala = models.CharField(max_length=50, verbose_name='Sala Traslado')
     trasObs = models.CharField(max_length=250, blank=True, default="", verbose_name='Observación Traslado')
+    trasRecep = models.OneToOneField(RegRecepcion, on_delete=models.CASCADE)
+    trasInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE, blank=True, default="")
 
     def __str__(self):
         return f'{self.trasId}'
@@ -75,9 +83,8 @@ class RegQuirurgico (models.Model):
 
     regQuiId = models.BigAutoField(primary_key=True, verbose_name='Id  Registro de Quirúrgico')
     regQuiFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Quirúrgico')
-    regQuiPac = models.OneToOneField(Paciente, on_delete=models.CASCADE)
     regQuiRec = models.OneToOneField(RegRecepcion, on_delete=models.CASCADE)
-    regQuiInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE)
+    regQuiInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE, blank=True)
     regQuiTras = models.OneToOneField(InfTraslado, on_delete=models.CASCADE)
 
     def __str__(self):

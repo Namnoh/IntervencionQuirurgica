@@ -35,7 +35,7 @@ class regForm(forms.ModelForm):
                     'id' : 'paCorreoEmerg'
                 }
             ),
-            'paCirugia': forms.TextInput(
+            'paCirugia': forms.Select(
                 attrs = {
                     'class': 'input',
                     'id' : 'paCirugia'
@@ -63,7 +63,7 @@ class interForm(forms.ModelForm):
         model = models.InfIntervencion
         fields = ['interNombre','interAnestesia', 'interApoyo', 'interCantApoyo', 'interCantApoyo', 'interObs', 'interInsumos']
         widgets = {
-            'interNombre': forms.TextInput(
+            'interNombre': forms.Select(
                 attrs = {
                     'class': 'input',
                     'id' : 'interNombre'
@@ -96,11 +96,11 @@ class interForm(forms.ModelForm):
                     'id' : 'interObs',
                 }
             ),
-            'interInsumos': forms.NumberInput(
+            'interInsumos': forms.TextInput(
                 attrs = {
                     'class': 'input',
                     'id' : 'inputJean2',
-                    'id' : 'interObs',
+                    'id' : 'interInsumos',
                 }
             ),
         }
@@ -128,28 +128,6 @@ class trasForm(forms.ModelForm):
                     'class': 'input',
                     'rows': '5',
                     'id' : 'trasObs',
-                }
-            ),
-        }
-
-class userLogin(forms.ModelForm):
-
-    class Meta:
-        model = models.Usuario
-        fields = ['userRut', 'userPassword']
-        widgets = {
-            'userRut': forms.TextInput(
-                attrs = {
-                    'class': 'form-control',
-                    'placeholder' : 'Ingrese su RUN',
-                    'id' : 'userRut'
-                }
-            ),
-            'userPassword': forms.PasswordInput(
-                attrs = {
-                    'class': 'form-control',
-                    'placeholder' : 'Ingrese su ClaveSS',
-                    'id' : 'userPassword',
                 }
             ),
         }

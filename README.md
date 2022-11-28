@@ -8,3 +8,5 @@ SSMSO (Servicio de Salud Metropolitano Sur Oriente) - Intervención Quirúrgica
     - Fernando Muñoz.
     - Jean Venegas.
     - Osvaldo Venegas.
+
+´pip install django-crispy-forms´

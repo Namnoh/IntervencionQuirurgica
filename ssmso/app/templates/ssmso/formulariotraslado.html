@@ -5,6 +5,19 @@
     {% include './default/head.html' %}
     <link rel="stylesheet" href="{% static '/ssmso/css/forms-styles.css' %}"> <!-- CSS -->
     <title>Formulario</title>
+    <style>
+        label.error {
+            color: red;
+            position: absolute;
+            margin-top: 70px;
+        }
+
+        input.error, textarea.error {
+            border: 1px dashed red;
+            color: red;
+            
+        }
+    </style>
 </head>
 <body>
     {% load static %}

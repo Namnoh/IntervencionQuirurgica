@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% load static %}
+<head>
+    {% include './default/head.html' %}
+    <link rel="stylesheet" href="{% static '/ssmso/css/main-styles.css' %}"> <!-- CSS -->
+    <title>Mostrar</title>
+</head>
+<body>
+    {% load static %}
+
+    <!-- HEADER -->
+    {% include './default/header.html' %}
+    
+    <div class="container">
+        <div class="body-bg">
+            <div class="row">
+                <div class="col centrar"><h1>FICHA QUIRÚRGICA</h1></div>
+            </div>
+            <hr><br>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    {% include './default/footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script> <!-- BOOTSTRAP -->
+</body>
+</html>
