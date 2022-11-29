@@ -4,7 +4,8 @@
 <head>
     {% include './default/head.html' %}
     <link rel="stylesheet" href="{% static '/ssmso/css/main-styles.css' %}"> <!-- CSS -->
-    <title>Mostrar</title>
+    <link rel="stylesheet" href="{% static '/ssmso/css/forms-styles.css' %}"> <!-- CSS -->
+    <title>Mostrando Ficha</title>
 </head>
 <body>
     {% load static %}
@@ -18,14 +19,129 @@
             <div class="row">
                 <div class="col centrar"><h1>FICHA QUIRÚRGICA</h1></div>
             </div>
-            <hr><br>
+            <hr><br><br>
 
-            <p>{{bitacora.regQuiId}}</p>
-            <p>{{bitacora.regQuiFecha}}</p>
-            <p>{{bitacora.regQuiRec}}</p>
-            <p>{{bitacora.regQuiInter}}</p>
-            <p>{{bitacora.regQuiTras}}</p>
+            <!-- DATOS REGISTRO QUIRÚRGICO -->
+            <div class="row">
+                <div class="col">Registro N°{{r.regQuiId}}</div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Fecha y Hora de Registro Quirúrgico: {{r.regQuiFecha}}</p></div>
+            </div>
+            <br><br>
 
+            <!-- DATOS PACIENTE -->
+            <div class="row">
+                <div class="col">
+                    <b>Datos paciente</b>
+                    <hr class="bg-info subtitlehr">
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Rut: {{r.regQuiRec.regRecepPac.paRut}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Nombres: {{r.regQuiRec.regRecepPac.paNombres}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Apellidos: {{r.regQuiRec.regRecepPac.paApellidos}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Correo de Emergencia: {{r.regQuiRec.regRecepPac.paCorreoEmerg}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Alergias: {{r.regQuiRec.regRecepPac.paAlergias}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Cirugias Anteriores: {{r.regQuiRec.regRecepPac.paCirugiasAnteriores}}</p></div>
+            </div>
+            <br><br>
+
+            <!-- DATOS REGISTRO RECEPCIÓN -->
+            <div class="row">
+                <div class="col">
+                    <b>Registro de Recepción N°: {{r.regQuiRec.regRecepId}}</b>
+                    <hr class="bg-info subtitlehr">
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <!-- <div class="col"><p>Registro de Recepción</p></div> -->
+                <div class="col"><p>Fecha y Hora de Recepción: {{r.regQuiRec.regRecepFecha}}</p></div>
+            </div>
+            <br><br>
+
+            <!-- DATOS REGISTRO DE INTERVENCIÓN -->
+            <div class="row">
+                <div class="col">
+                    <b>Registro de Intervención N°: {{r.regQuiInter.interId}}</b>
+                    <hr class="bg-info subtitlehr">
+                    <br>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- <div class="col"><p>Registro de Recepción </p></div> -->
+                <div class="col"><p>Fecha y Hora de Intervención: {{r.regQuiInter.interFecha}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Nombre de la Intervención: {{r.regQuiInter.interNombre.cirugiaNombre}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Tipo de Anestesia: {{r.regQuiInter.interAnestesia}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Tipo de Apoyo Necesario: {{r.regQuiInter.interApoyo}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Cantidad de Apoyo: {{r.regQuiInter.interCantApoyo}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Observación: {{r.regQuiInter.interObs}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Recuento Insumos Utilizados: {{r.regQuiInter.interInsumos}}</p></div>
+            </div>
+            <br><br>
+
+            <!-- DATOS REGISTRO DE TRASLADO -->
+            <div class="row">
+               <div class="col">
+                   <b>Registro de Traslado N°: {{r.regQuiTras.trasId}}</b>
+                   <hr class="bg-info subtitlehr">
+                   <br>
+               </div>
+            </div>
+            
+            <div class="row">
+                <!-- <div class="col"><p>Registro de Traslado </p></div> -->
+                <div class="col"><p>Fecha y Hora de Traslado: {{r.regQuiTras.trasFecha}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Equipo Encargado de Traslado: {{r.regQuiTras.trasEquipo}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Sala de Traslado: {{r.regQuiTras.trasSala}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col"><p>Observaciones: {{r.regQuiTras.trasObs}}</p></div>
+            </div>
+            <br><br>
+            
+            <a href="{% url 'index' %}" style="text-decoration:none">
+                <button>
+                    <div class="svg-wrapper-1">
+                    <div class="svg-wrapper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                        </svg>
+                    </div>
+                    </div>
+                    <span>Volver al Inicio</span>
+                </button>
+            </a>
         </div>
     </div>
 

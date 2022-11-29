@@ -80,9 +80,21 @@ def traslado(request):
             else :
                 bitacora = models.RegQuirurgico(regQuiRec=reg, regQuiTras=tras)
             
-            # bitacora.save()
+            bitacora.save()
 
-            return render(request, 'ssmso/fichaQuirurgica.html', {'bitacora' : bitacora})
+            regQui = models.RegQuirurgico.objects.last()
+
+            fechaYhora = regQui.regQuiFecha
+            fecha = fechaYhora.date()
+            hora = fechaYhora.time()
+
+            context = {
+                'r' : regQui,
+                'fecha' : fecha,
+                'hora' : hora,
+            }
+
+            return render(request, 'ssmso/fichaQuirurgica.html', context)
     else:
         tras_form = trasForm()
     return render(request, 'ssmso/formulariotraslado.html', {'tras_form' : tras_form})

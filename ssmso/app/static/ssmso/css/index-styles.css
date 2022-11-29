@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
 
+.color {
+  color: rgba(212, 4, 4, 0.801) !important;
+}
+
 .card {
   width: 26vh;
   height: 40vh;

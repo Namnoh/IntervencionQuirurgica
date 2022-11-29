@@ -43,7 +43,7 @@ class Paciente (models.Model):
 class RegRecepcion (models.Model):
 
     regRecepId = models.BigAutoField(primary_key=True, verbose_name='Id  Registro de Recepción')
-    regRecepFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Recepción')
+    regRecepFecha = models.DateTimeField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Recepción')
     regRecepPac = models.OneToOneField(Paciente, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -52,7 +52,7 @@ class RegRecepcion (models.Model):
 class InfIntervencion (models.Model):
 
     interId = models.BigAutoField(primary_key=True, verbose_name='Id  Intervención')
-    interFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Intervención')
+    interFecha = models.DateTimeField(default=django.utils.timezone.now, verbose_name='Fecha Intervención')
     interNombre = models.ForeignKey(Cirugia, on_delete=models.CASCADE)
     interAnestesia = models.CharField(max_length=50, verbose_name='Anestesia Intervención')
     interApoyo = models.CharField(max_length=50, blank=True, default="", verbose_name='Apoyo Intervención')
@@ -69,7 +69,7 @@ class InfIntervencion (models.Model):
 class InfTraslado (models.Model):
 
     trasId = models.BigAutoField(primary_key=True, verbose_name='Id  Traslado')
-    trasFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Traslado')
+    trasFecha = models.DateTimeField(default=django.utils.timezone.now, verbose_name='Fecha Traslado')
     trasEquipo = models.CharField(max_length=50, verbose_name='Equipo Traslado')
     trasSala = models.CharField(max_length=50, verbose_name='Sala Traslado')
     trasObs = models.CharField(max_length=250, blank=True, default="", verbose_name='Observación Traslado')
@@ -82,7 +82,7 @@ class InfTraslado (models.Model):
 class RegQuirurgico (models.Model):
 
     regQuiId = models.BigAutoField(primary_key=True, verbose_name='Id  Registro de Quirúrgico')
-    regQuiFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Quirúrgico')
+    regQuiFecha = models.DateTimeField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Quirúrgico')
     regQuiRec = models.OneToOneField(RegRecepcion, on_delete=models.CASCADE)
     regQuiInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE, blank=True, null=True)
     regQuiTras = models.OneToOneField(InfTraslado, on_delete=models.CASCADE)

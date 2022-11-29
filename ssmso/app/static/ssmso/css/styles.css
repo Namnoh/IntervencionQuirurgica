@@ -3,7 +3,6 @@ body {
     background-color: #E6E6E6;
 }
 
-
 /* HEADER */
 header{
     background-image: url(../img/bg.png);
@@ -51,9 +50,4 @@ header{
 
 .mb-3>input{
     font-size: 20px;
-}
-
-#boton-continue{
-    
-    border
 }
