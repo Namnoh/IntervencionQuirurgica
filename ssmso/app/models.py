@@ -74,7 +74,7 @@ class InfTraslado (models.Model):
     trasSala = models.CharField(max_length=50, verbose_name='Sala Traslado')
     trasObs = models.CharField(max_length=250, blank=True, default="", verbose_name='Observación Traslado')
     trasRecep = models.OneToOneField(RegRecepcion, on_delete=models.CASCADE)
-    trasInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE, blank=True, default="")
+    trasInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f'{self.trasId}'
@@ -84,7 +84,7 @@ class RegQuirurgico (models.Model):
     regQuiId = models.BigAutoField(primary_key=True, verbose_name='Id  Registro de Quirúrgico')
     regQuiFecha = models.DateField(default=django.utils.timezone.now, verbose_name='Fecha Registro de Quirúrgico')
     regQuiRec = models.OneToOneField(RegRecepcion, on_delete=models.CASCADE)
-    regQuiInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE, blank=True)
+    regQuiInter = models.OneToOneField(InfIntervencion, on_delete=models.CASCADE, blank=True, null=True)
     regQuiTras = models.OneToOneField(InfTraslado, on_delete=models.CASCADE)
 
     def __str__(self):

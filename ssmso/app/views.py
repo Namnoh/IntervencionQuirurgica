@@ -30,7 +30,14 @@ def intervencion(request):
     if request.method == 'POST':
         inter_form = interForm(request.POST)
         if inter_form.is_valid():
-            inter_form.save()
+            
+            cirugia = models.Cirugia.objects.get(cirugiaId=request.POST['interNombre'])
+
+            reg = models.RegRecepcion.objects.last()
+            inter = models.InfIntervencion(interNombre=cirugia, interAnestesia=inter_form.cleaned_data['interAnestesia'], interApoyo=inter_form.cleaned_data['interApoyo'], interCantApoyo=inter_form.cleaned_data['interCantApoyo'], interObs=inter_form.cleaned_data['interObs'], interInsumos=inter_form.cleaned_data['interInsumos'], interRecep=reg)
+            
+            inter.save()
+
             return redirect('traslado')
     else:
         inter_form = interForm()
@@ -42,23 +49,40 @@ def traslado(request):
     if request.method == 'POST':
         tras_form = trasForm(request.POST)
         if tras_form.is_valid():
-            tras_form.save()
 
             reg = models.RegRecepcion.objects.last()
-            inter = models.InfIntervencion.objects.last()
-            tras = models.InfTraslado.objects.last()
 
-            if inter.interId == tras.trasId:
-                intervencion = True
+            try:
+                inter = models.InfIntervencion.objects.get(interRecep = reg.regRecepId)
+            except:
+                var_exists = False
+            else:
+                var_exists = True
+
+            if var_exists == True :
+                inter = models.InfIntervencion.objects.get(interRecep = reg.regRecepId)
+                tras = models.InfTraslado(trasEquipo=tras_form.cleaned_data['trasEquipo'], trasSala=tras_form.cleaned_data['trasSala'], trasObs=tras_form.cleaned_data['trasObs'], trasRecep=reg, trasInter=inter)
+            else :
+                tras = models.InfTraslado(trasEquipo=tras_form.cleaned_data['trasEquipo'], trasSala=tras_form.cleaned_data['trasSala'], trasObs=tras_form.cleaned_data['trasObs'], trasRecep=reg)
             
+            tras.save()
+
+            tras = models.InfTraslado.objects.last()
+            inter = tras.trasInter
+
+            if inter :
+                intervencion = True
+            else :
+                intervencion = False
+
             if intervencion :
                 bitacora = models.RegQuirurgico(regQuiRec=reg, regQuiInter=inter, regQuiTras=tras)
-            else:
+            else :
                 bitacora = models.RegQuirurgico(regQuiRec=reg, regQuiTras=tras)
             
-            bitacora.save()
+            # bitacora.save()
 
-            return redirect('ssmso/fichaQuirurgica.html')
+            return render(request, 'ssmso/fichaQuirurgica.html', {'bitacora' : bitacora})
     else:
         tras_form = trasForm()
     return render(request, 'ssmso/formulariotraslado.html', {'tras_form' : tras_form})
@@ -116,4 +140,3 @@ def editarRecepcion(request):
         'tras_form' : trasForm()
     }
     return render(request, 'ssmso/editarRecepcion.html', context)
-
