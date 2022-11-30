@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
 # REDIRECT DE LOGIN Y LOGOUT
 LOGIN_REDIRECT_URL='/'
 LOGOUT_REDIRECT_URL='login'

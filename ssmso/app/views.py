@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from . import models
 from . forms import regForm, interForm, trasForm
+from django.contrib import messages
 
 # Create your views here.
 
@@ -19,7 +20,10 @@ def forms(request):
             reg = models.RegRecepcion(regRecepPac=paciente)
             reg.save()
 
+            messages.success(request, "Registro guardado correctamente")
             return redirect('intervencion')
+        else:
+            messages.error(request, "Revise sus datos e intentelo nuevamente")
     else:
         reg_form = regForm()
     return render(request, 'ssmso/forms.html', {'reg_form' : reg_form})
@@ -37,8 +41,11 @@ def intervencion(request):
             inter = models.InfIntervencion(interNombre=cirugia, interAnestesia=inter_form.cleaned_data['interAnestesia'], interApoyo=inter_form.cleaned_data['interApoyo'], interCantApoyo=inter_form.cleaned_data['interCantApoyo'], interObs=inter_form.cleaned_data['interObs'], interInsumos=inter_form.cleaned_data['interInsumos'], interRecep=reg)
             
             inter.save()
-
+            
+            messages.success(request, "Registro guardado correctamente")
             return redirect('traslado')
+        else:
+            messages.error(request, "Revise sus datos e intentelo nuevamente")
     else:
         inter_form = interForm()
     return render(request, 'ssmso/formulariointer.html', {'inter_form' : inter_form})
@@ -84,17 +91,12 @@ def traslado(request):
 
             regQui = models.RegQuirurgico.objects.last()
 
-            fechaYhora = regQui.regQuiFecha
-            fecha = fechaYhora.date()
-            hora = fechaYhora.time()
-
             context = {
-                'r' : regQui,
-                'fecha' : fecha,
-                'hora' : hora,
+                'r' : regQui
             }
-
             return render(request, 'ssmso/fichaQuirurgica.html', context)
+        else:
+            messages.error(request, "Revise sus datos e intentelo nuevamente")
     else:
         tras_form = trasForm()
     return render(request, 'ssmso/formulariotraslado.html', {'tras_form' : tras_form})
@@ -104,51 +106,53 @@ def traslado(request):
 def fichaQuirurgica(request):
     return render(request, 'ssmso/fichaQuirurgica.html')
 
+# MOSTRAR TODOS
+
+def mostrarTodo(request):
+    reg = models.RegQuirurgico.objects.all()
+    context = {
+        'reg': reg
+    }
+    return render(request, 'ssmso/mostrarTodo.html', context)
+
+def prueba(request):
+    return render(request, 'ssmso/prueba.html')
+
+#  ELIMINAR UN REGISTRO
+def delReg(request, id):
+    regQ = models.RegQuirurgico.objects.get(regQuiId=id)
+    regQ = regQ.regQuiRec.regRecepPac.paRut
+    regQ = models.Paciente.objects.get(paRut=regQ)
+    regQ.delete()
+    return redirect('mostrarTodo')
+
 # MODIFICAR FORMULARIO RECEPCION
 
-# def modificarFormularioRecepcion(request, id):
-#     formularios = get_object_or_404(models, id= id)
-#     data = {
-        
-#         'form': forms(instance = formulario)
-#     }
-#     if request.method == 'POST':
-#         formulario = forms(data = request.POST , instance= formulario, files= request.FiLES) 
-#         if formulario.is_valid():
-#             formulario.save()
-#             data['mensaje'] = "modificado correctamente"
-#             return redirect(to="formulariointer.html")
-#         data['form'] = formulario
-#     return render(request, 'ssmso/forms.html', data)
-
-#MODIFICAR FORMULARIO INTERVENCION
-
-# def modificarFormularioIntervencio(request, id):
-#     return render(request, 'ssmso/formulariointer.html')
-
-#MODIFICAR FORMULARIO TRASLADO 
-
-# def modificarFormularioTraslado(request, id):
-#     product = Product.objects.get(prodId=id)
-#     datos = {
-#         'form': prodForm(instance = product),
-#         'product': product,
+# def modReg(request, id):
+#     reg = models.RegQuirurgico.objects.get(prodId=id)
+#     # datos = {
+#     #     'form': prodForm(instance = product),
+#     #     'product': product,
+#     # }
+#     context = {
+#         'reg' : reg,
+#         'reg_form' : regForm(),
+#         'inter_form' : interForm(),
+#         'tras_form' : trasForm()
 #     }
 #     if request.method == 'POST':
 #         if request.FILES != None:
 #             formulario = prodForm(data=request.POST, instance = product, files = request.FILES)
 #         else:
 #             formulario = prodForm(data=request.POST, instance = product)
-
+        
 #         if formulario.is_valid():
 #             formulario.save()
 #             return redirect('showProd')
-#     return render(request, 'ssmso/formularioTraslado.html',datos)
-    
-def editarRecepcion(request):
-    context = {
-        'reg_form' : regForm(),
-        'inter_form' : interForm(),
-        'tras_form' : trasForm()
-    }
-    return render(request, 'ssmso/editarRecepcion.html', context)
+#     return render(request, 'ssmso/editarRecepcion.html', context)
+
+def editarReg(request):
+    return render(request, 'ssmso/editarReg.html')
+
+def pagMantencion(request):
+    return render(request, 'ssmso/paginaMantencion.html')

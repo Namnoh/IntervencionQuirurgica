@@ -37,7 +37,7 @@ class regForm(forms.ModelForm):
             ),
             'paCirugia': forms.Select(
                 attrs = {
-                    'class': 'input',
+                    'class': 'input selectBox',
                     'id' : 'paCirugia'
                 }
             ),
@@ -65,7 +65,7 @@ class interForm(forms.ModelForm):
         widgets = {
             'interNombre': forms.Select(
                 attrs = {
-                    'class': 'input',
+                    'class': 'input selectBox',
                     'id' : 'interNombre'
                 }
             ),
@@ -90,7 +90,7 @@ class interForm(forms.ModelForm):
             ),
             'interObs': forms.Textarea(
                 attrs = {
-                    'class': 'input',
+                    'class': 'input textarea',
                     'rows': '5',
                     'id' : 'inputJean2',
                     'id' : 'interObs',
@@ -125,7 +125,7 @@ class trasForm(forms.ModelForm):
             ),
             'trasObs': forms.Textarea(
                 attrs = {
-                    'class': 'input',
+                    'class': 'input textarea',
                     'rows': '5',
                     'id' : 'trasObs',
                 }

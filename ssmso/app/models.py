@@ -25,7 +25,8 @@ class Cirugia (models.Model):
         ordering=['cirugiaNombre']
 
     def __str__(self):
-        return f'{self.cirugiaId} - {self.cirugiaNombre}'
+        return f'{self.cirugiaNombre}'
+
 
 class Paciente (models.Model):
 

@@ -3,11 +3,12 @@
     {% load static %}
 <head>
     {% include './default/head.html' %}
-    <link rel="stylesheet" href="{% static '/ssmso/css/main-styles.css' %}"> <!-- CSS -->
+    <link rel="stylesheet" href="{% static '/ssmso/css/main.css' %}"> <!-- CSS -->
     <link rel="stylesheet" href="{% static '/ssmso/css/forms-styles.css' %}"> <!-- CSS -->
+    <link rel="stylesheet" href="{% static '/ssmso/css/css-prueba.css' %}"> <!-- CSS -->
     <title>Mostrando Ficha</title>
 </head>
-<body>
+<body onLoad="exito()">
     {% load static %}
 
     <!-- HEADER -->
@@ -16,8 +17,27 @@
     <!-- BODY -->
     <div class="container">
         <div class="body-bg">
+            <!-- progress-bar -->
+            <section class="step-wizard">
+                <ul class="step-wizard-list">
+                    <li class="step-wizard-item">
+                        <span class="progress-count">1</span>
+                        <span class="progress-label">Recepcion de paciente</span>
+                    </li>
+                    <li class="step-wizard-item">
+                        <span class="progress-count">2</span>
+                        <span class="progress-label">Intervencion quirurgica</span>
+                    </li>
+                    <li class="step-wizard-item">
+                        <span class="progress-count">3</span>
+                        <span class="progress-label">Trasalado paciente</span>
+                    </li>
+                </ul>
+            </section>
+            <br><br>
+
             <div class="row">
-                <div class="col centrar"><h1>FICHA QUIRÚRGICA</h1></div>
+                <div class="col centrar"><h1><b>FICHA QUIRÚRGICA</b></h1></div>
             </div>
             <hr><br><br>
 
@@ -50,12 +70,16 @@
             <div class="row">
                 <div class="col"><p>Correo de Emergencia: {{r.regQuiRec.regRecepPac.paCorreoEmerg}}</p></div>
             </div>
+            {% if r.regQuiRec.regRecepPac.paAlergias != "" %}
             <div class="row">
                 <div class="col"><p>Alergias: {{r.regQuiRec.regRecepPac.paAlergias}}</p></div>
             </div>
+            {% endif %}
+            {% if r.regQuiRec.regRecepPac.paCirugiasAnteriores != "" %}
             <div class="row">
                 <div class="col"><p>Cirugias Anteriores: {{r.regQuiRec.regRecepPac.paCirugiasAnteriores}}</p></div>
             </div>
+            {% endif %}
             <br><br>
 
             <!-- DATOS REGISTRO RECEPCIÓN -->
@@ -67,11 +91,11 @@
                 </div>
             </div>
             <div class="row">
-                <!-- <div class="col"><p>Registro de Recepción</p></div> -->
                 <div class="col"><p>Fecha y Hora de Recepción: {{r.regQuiRec.regRecepFecha}}</p></div>
             </div>
             <br><br>
 
+            {% if r.regQuiInter %}
             <!-- DATOS REGISTRO DE INTERVENCIÓN -->
             <div class="row">
                 <div class="col">
@@ -91,18 +115,31 @@
             <div class="row">
                 <div class="col"><p>Tipo de Anestesia: {{r.regQuiInter.interAnestesia}}</p></div>
             </div>
+            {% if r.regQuiInter.interApoyo != "" %}
             <div class="row">
                 <div class="col"><p>Tipo de Apoyo Necesario: {{r.regQuiInter.interApoyo}}</p></div>
             </div>
+            {% endif %}
+            {% if r.regQuiInter.interCantApoyo != 0 %}
             <div class="row">
                 <div class="col"><p>Cantidad de Apoyo: {{r.regQuiInter.interCantApoyo}}</p></div>
             </div>
+            {% endif %}
+            {% if r.regQuiInter.interObs != "" %}
             <div class="row">
                 <div class="col"><p>Observación: {{r.regQuiInter.interObs}}</p></div>
             </div>
+            {% endif %}
+            {% if r.regQuiInter.interInsumos != "" %}
             <div class="row">
                 <div class="col"><p>Recuento Insumos Utilizados: {{r.regQuiInter.interInsumos}}</p></div>
             </div>
+            {% endif %}
+            {% else %}
+            <hr>
+            <h5><b>NO SE REGISTRÓ LA INTERVENCIÓN QUIRÚRGICA (NO SE REALIZÓ LA INTERVENCIÓN)</b></h5>
+            <hr>
+            {% endif %}
             <br><br>
 
             <!-- DATOS REGISTRO DE TRASLADO -->
@@ -124,9 +161,11 @@
             <div class="row">
                 <div class="col"><p>Sala de Traslado: {{r.regQuiTras.trasSala}}</p></div>
             </div>
+            {% if r.regQuiTras.trasObs != "" %}
             <div class="row">
                 <div class="col"><p>Observaciones: {{r.regQuiTras.trasObs}}</p></div>
             </div>
+            {% endif %}
             <br><br>
             
             <a href="{% url 'index' %}" style="text-decoration:none">
@@ -148,6 +187,8 @@
     <!-- FOOTER -->
     {% include './default/footer.html' %}
 
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SWEETALERT2 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script> <!-- BOOTSTRAP -->
+    <script src="{% static '/ssmso/js/sweetalert-Main.js' %}"></script>
 </body>
 </html>

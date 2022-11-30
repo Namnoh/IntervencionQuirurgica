@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+{% load static %}
+<head>
+    {% include './default/head.html' %}
+    <title>Mostrar Fichas</title>
+</head>
+<body>
+    {% load static %}
+
+    <!-- HEADER -->
+    {% include './default/header.html' %}
+
+    <!-- BODY -->
+    <div class="container">
+        <div class="body-bg">
+            <div class="row">
+                <div class="col centrar"><h1><b>Mostrar Registros Quirúrgico</b></h1></div>
+            </div>
+            <hr><br>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Id Reg Quirúrgico</th>
+                            <th>Fecha Registro</th>
+                            <th>Rut Paciente</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if reg %}
+                            {% for r in reg %}
+                            <tr>
+                                <td>{{ r.regQuiId }}</td>
+                                <td>{{ r.regQuiFecha }}</td>
+                                <td>{{ r.regQuiRec.regRecepPac.paRut }}</td>
+                                <td><a href="#" class="btn btn-success">Ver</a></td>
+                                <td><a href="#" class="btn btn-primary">Modificar</a></td>
+                                <td><a onclick="eliminarReg()" class="btn btn-danger">Eliminar</a></td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4">
+                                    <div class="alert alert-danger text-center">Registros Quirúrgicos</div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    {% include './default/footer.html' %}
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script> <!-- BOOTSTRAP -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SWEETALERT2 -->
+    <script type="module" src="{% static '/ssmso/js/sweetalert-Main.js' %}"></script> <!-- SWEET ALERT MAIN JS -->
+</body>
+</html>

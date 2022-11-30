@@ -7,5 +7,9 @@ urlpatterns = [
     path('formulariointer.html', intervencion ,name="intervencion"),
     path('formulariotraslado.html', traslado ,name="traslado"),
     path('fichaQuirurgica.html', fichaQuirurgica ,name="fichaQuirurgica"),
-    path('editarRecepcion.html', editarRecepcion ,name="editarRecepcion")
+    path('mostrarTodo.html/', mostrarTodo ,name="mostrarTodo"),
+    path('editarReg.html/', editarReg ,name="editarReg"),
+    path('prueba.html/', prueba ,name="prueba"),
+    path('delReg/<id>', delReg, name="delReg"),
+    path('paginaMantencion.html', pagMantencion, name="paginaMantencion")
 ]

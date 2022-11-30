@@ -1,16 +1,17 @@
 //  FORMS REGISTRO DE RECEPCIÓN
 $(document).ready(function(){
 
-  jQuery.validator.addMethod("customNombre", function(value, element) { 
-  return this.optional( element ) || /^([a-zA-Z])+$/.test( value ); 
+  jQuery.validator.addMethod("customNombre", function(value, element) 
+  {
+  return this.optional(element) || /^[a-z-Zñ," "]+$/i.test(value);
   }, "Porfavor, solo letras");
 
-  jQuery.validator.addMethod("custonNumeros", function(value, element) { 
+  jQuery.validator.addMethod("customNumeros", function(value, element) { 
     return this.optional( element ) || /^([0-9])+$/.test( value ); 
   }, "Porfavor, solo numeros");
  
   jQuery.validator.addMethod("customEmail", function(value, element) { 
-  return this.optional( element ) || /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test( value ); 
+  return this.optional( element ) || /^([a-zA-Z0-9_mñ\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test( value ); 
   }, "Porfavor, ingresa un correo valido. Ejemplo: correo@mail.com");
   
   jQuery.validator.addMethod("noEspacio",function(value, element) { 
@@ -69,7 +70,6 @@ $(document).ready(function(){
         paCorreoEmerg:{
           required:""
         },
-
       }
     });
   }

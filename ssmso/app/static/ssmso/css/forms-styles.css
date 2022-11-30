@@ -12,6 +12,9 @@
     border-bottom: 1px solid #515151;
     background: transparent;
    }
+   .textarea {
+    width: 15rem;
+   }
    
    .input:focus {
     outline: none;
@@ -36,6 +39,12 @@
    }
    
    .input:focus ~ label, .input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #5264AE;
+   }
+
+   .selectBox ~ label, .input:valid ~ label {
     top: -20px;
     font-size: 14px;
     color: #5264AE;
@@ -153,5 +162,6 @@
 }
 
 
+/* estilo barra de progreso */
 
 

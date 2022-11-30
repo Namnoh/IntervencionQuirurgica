@@ -13,26 +13,25 @@
   transition: border 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: black;
 }
-   
-.card:hover {
-  border: #006fff 0.2em solid;
-  
-}
+
 .overlay {
   position: absolute;
   bottom: 0;
   left: 0;
-  right: 0;
   background-color: #0213fd85;
   overflow: hidden;
   width: 100%;
   height: 0;
   transition: .5s ease;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.4em;
 }
 
 .card:hover .overlay {
   height: 100%;
   backdrop-filter: blur(6px);
+  border: #006fff 0.2em solid;
 }
 .text {
   color: white;
