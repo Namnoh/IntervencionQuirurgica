@@ -9,7 +9,7 @@ urlpatterns = [
     path('fichaQuirurgica.html', fichaQuirurgica ,name="fichaQuirurgica"),
     path('mostrarTodo.html/', mostrarTodo ,name="mostrarTodo"),
     path('editarReg.html/', editarReg ,name="editarReg"),
-    path('prueba.html/', prueba ,name="prueba"),
-    path('delReg/<id>', delReg, name="delReg"),
+    path('verReg.html/<id>/', verReg ,name="verReg"),
+    path('delReg/<id>/', delReg, name="delReg"),
     path('paginaMantencion.html', pagMantencion, name="paginaMantencion")
 ]

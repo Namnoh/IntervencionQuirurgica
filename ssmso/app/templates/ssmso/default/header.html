@@ -25,9 +25,9 @@
                                             <b> Fase Pré-Quirúrgica</b>
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{% url 'forms' %}">Inter-Consulta</a></li>
-                                            <li><a class="dropdown-item" href="{% url 'intervencion' %}">Evaluación Consulta</a></li>
-                                            <li><a class="dropdown-item" href="{% url 'traslado' %}">Programación de Cirugía</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'paginaMantencion' %}">Inter-Consulta</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'paginaMantencion' %}">Evaluación Consulta</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'paginaMantencion' %}">Programación de Cirugía</a></li>
                                         </ul>
                                     </li>
                                 </div>
@@ -38,7 +38,7 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="{% url 'paginaMantencion' %}">Preparación Pabellón</a></li>
-                                            <li><a class="dropdown-item" href="#">Ejecución de Intervención Quirúrgica</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'forms' %}" style="color: blue">Ejecución de Intervención Quirúrgica</a></li>
                                         </ul>
                                     </li>
                                 </div>

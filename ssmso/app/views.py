@@ -115,41 +115,21 @@ def mostrarTodo(request):
     }
     return render(request, 'ssmso/mostrarTodo.html', context)
 
-def prueba(request):
-    return render(request, 'ssmso/prueba.html')
-
 #  ELIMINAR UN REGISTRO
+
 def delReg(request, id):
     regQ = models.RegQuirurgico.objects.get(regQuiId=id)
     regQ = regQ.regQuiRec.regRecepPac.paRut
     regQ = models.Paciente.objects.get(paRut=regQ)
     regQ.delete()
+    messages.success(request, "Ficha Eliminada Correctamente")
     return redirect('mostrarTodo')
 
-# MODIFICAR FORMULARIO RECEPCION
+# VER REGISTRO QURÚRGICO
+def verReg(request, id):
+    regQ = models.RegQuirurgico.objects.get(regQuiId=id)
+    return render(request, 'ssmso/verReg.html', {'r' : regQ})
 
-# def modReg(request, id):
-#     reg = models.RegQuirurgico.objects.get(prodId=id)
-#     # datos = {
-#     #     'form': prodForm(instance = product),
-#     #     'product': product,
-#     # }
-#     context = {
-#         'reg' : reg,
-#         'reg_form' : regForm(),
-#         'inter_form' : interForm(),
-#         'tras_form' : trasForm()
-#     }
-#     if request.method == 'POST':
-#         if request.FILES != None:
-#             formulario = prodForm(data=request.POST, instance = product, files = request.FILES)
-#         else:
-#             formulario = prodForm(data=request.POST, instance = product)
-        
-#         if formulario.is_valid():
-#             formulario.save()
-#             return redirect('showProd')
-#     return render(request, 'ssmso/editarRecepcion.html', context)
 
 def editarReg(request):
     return render(request, 'ssmso/editarReg.html')

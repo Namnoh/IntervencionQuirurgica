@@ -3,12 +3,10 @@
     {% load static %}
 <head>
     {% include './default/head.html' %}
-    <link rel="stylesheet" href="{% static '/ssmso/css/main.css' %}"> <!-- CSS -->
     <link rel="stylesheet" href="{% static '/ssmso/css/forms-styles.css' %}"> <!-- CSS -->
-    <link rel="stylesheet" href="{% static '/ssmso/css/css-prueba.css' %}"> <!-- CSS -->
     <title>Mostrando Ficha</title>
 </head>
-<body onLoad="fichaExito()">
+<body>
     {% load static %}
 
     <!-- HEADER -->
@@ -17,24 +15,6 @@
     <!-- BODY -->
     <div class="container">
         <div class="body-bg">
-            <!-- progress-bar -->
-            <section class="step-wizard">
-                <ul class="step-wizard-list">
-                    <li class="step-wizard-item">
-                        <span class="progress-count">1</span>
-                        <span class="progress-label">Recepcion de paciente</span>
-                    </li>
-                    <li class="step-wizard-item">
-                        <span class="progress-count">2</span>
-                        <span class="progress-label">Intervencion quirurgica</span>
-                    </li>
-                    <li class="step-wizard-item">
-                        <span class="progress-count">3</span>
-                        <span class="progress-label">Trasalado paciente</span>
-                    </li>
-                </ul>
-            </section>
-            <br><br>
 
             <div class="row">
                 <div class="col centrar"><h1><b>FICHA QUIRÚRGICA</b></h1></div>
@@ -168,7 +148,7 @@
             {% endif %}
             <br><br>
             
-            <a href="{% url 'index' %}" style="text-decoration:none">
+            <a href="{% url 'mostrarTodo' %}" style="text-decoration:none">
                 <button>
                     <div class="svg-wrapper-1">
                     <div class="svg-wrapper">
@@ -178,7 +158,7 @@
                         </svg>
                     </div>
                     </div>
-                    <span>Volver al Inicio</span>
+                    <span>Volver</span>
                 </button>
             </a>
         </div>
